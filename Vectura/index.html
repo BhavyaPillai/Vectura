@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vectura</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f1ec;--card:#fff;--tx:#14202e;--mu:#5f6d7a;--bd:#e0e4e1;--ac:#2f5bff;--res:#e5322d;--cm:#0c9a86;--gr:#e6ebe7;--ax:#8795a1;--sh:0 8px 28px rgba(20,32,46,.08);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b1c2e;--card:#10263c;--tx:#e6eef6;--mu:#8fa5b8;--bd:#25435f;--ac:#6aa0ff;--res:#ff6b5e;--cm:#3fd8c2;--gr:#183550;--ax:#6f8ba3;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0b1c2e;--card:#10263c;--tx:#e6eef6;--mu:#8fa5b8;--bd:#25435f;--ac:#6aa0ff;--res:#ff6b5e;--cm:#3fd8c2;--gr:#183550;--ax:#6f8ba3;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Archivo,system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.5px}h1 span{color:var(--res)}
+.sub{color:var(--mu);font-size:13px;flex:1}
+button,select,input{font:inherit;color:var(--tx)}
+button{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--ac)}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.tabs{display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap}.tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+main{display:grid;grid-template-columns:minmax(290px,380px) 1fr;gap:16px;padding:16px 20px 30px;max-width:1300px;margin:auto}
+@media(max-width:820px){main{grid-template-columns:1fr}}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:14px}
+h2{margin:0 0 10px;font-size:15px;font-weight:800}
+.rw{display:grid;gap:6px;margin-bottom:6px;align-items:center}
+.rw input,.set select,.sv input{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:6px 8px}
+.hd{color:var(--mu);font-size:12px}
+.set{display:flex;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--mu);margin-top:10px;align-items:center}
+canvas{width:100%;height:auto;border-radius:8px;display:block}
+.res{border-left:4px solid var(--res);padding-left:12px;font-weight:600}
+details{border-top:1px solid var(--bd);padding:8px 0}summary{cursor:pointer;font-weight:600}
+table{border-collapse:collapse;font-size:13px;margin:8px 0;display:block;overflow-x:auto}td,th{border:1px solid var(--bd);padding:4px 8px;text-align:right;white-space:nowrap}
+p{margin:6px 0}.f{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.sv{display:flex;gap:6px;margin-bottom:8px}.it{display:flex;justify-content:space-between;gap:6px;padding:6px 0;border-top:1px solid var(--bd);font-size:13px;align-items:center}
+.it small{color:var(--mu);display:block}
+body{background:radial-gradient(900px 380px at 85% -10%,color-mix(in srgb,var(--ac) 16%,transparent),transparent),var(--bg)}
+.box{border-radius:16px;box-shadow:var(--sh)}
+header{border:0;padding:22px 20px 4px;max-width:1300px;margin:auto}
+h1{font-size:32px}.tag{width:100%;margin:2px 0 0;font-size:20px;font-weight:600;letter-spacing:-.3px}
+.tabs{max-width:1300px;margin:auto;padding-top:12px}.tabs button{border-radius:999px;padding:8px 18px}
+button{transition:.18s}button:hover{transform:translateY(-1px)}button:disabled{opacity:.5;cursor:default;transform:none}
+.drop{display:block;border:2px dashed var(--bd);border-radius:12px;padding:18px;text-align:center;cursor:pointer;color:var(--mu)}.drop:hover{border-color:var(--ac)}
+#pv{max-width:100%;max-height:180px;border-radius:8px;margin-top:8px;display:none}.msg{font-size:13px;margin-top:8px;color:var(--mu)}
+@media(prefers-reduced-motion:no-preference){.ar{stroke-dasharray:70;animation:dr 1.3s ease-out both}@keyframes dr{from{stroke-dashoffset:70}to{stroke-dashoffset:0}}}
+:root{--bg:#fff6ee;--card:#fff;--tx:#2b1a52;--mu:#7b6b9c;--bd:#f1dfe8;--ac:#7c3aed;--res:#ff3d77;--cm:#0ea5a0;--gr:#f7ebf1;--ax:#b9a2cf;--sh:0 10px 30px rgba(124,58,237,.14)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#140c2b;--card:#211449;--tx:#f6f0ff;--mu:#b9a8e3;--bd:#3b2a75;--ac:#a78bfa;--res:#ff5c8a;--cm:#2dd4bf;--gr:#2c1d5d;--ax:#8f7cc6;--sh:0 10px 30px rgba(0,0,0,.35)}}
+:root[data-theme=dark]{--bg:#140c2b;--card:#211449;--tx:#f6f0ff;--mu:#b9a8e3;--bd:#3b2a75;--ac:#a78bfa;--res:#ff5c8a;--cm:#2dd4bf;--gr:#2c1d5d;--ax:#8f7cc6;--sh:0 10px 30px rgba(0,0,0,.35)}
+body{background:radial-gradient(700px 360px at 8% -5%,rgba(255,61,119,.24),transparent),radial-gradient(800px 420px at 96% 0,rgba(124,58,237,.26),transparent),radial-gradient(600px 400px at 60% 112%,rgba(255,170,0,.2),transparent),var(--bg)}
+h1{font-size:38px;background:linear-gradient(90deg,#7c3aed,#ff3d77 60%,#ff9f1a);-webkit-background-clip:text;background-clip:text;color:transparent}h1 span{color:transparent}
+.tag{color:var(--tx)}
+button.p,.tabs button.on{background:linear-gradient(135deg,#7c3aed,#ff3d77);color:#fff;border:0}
+.tabs button{background:var(--card);font-weight:600}
+h2{display:flex;align-items:center;gap:8px;font-size:16px}h2::before{content:"";width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ff3d77)}
+.box{border:1px solid var(--bd)}
+.res{background:linear-gradient(90deg,rgba(255,61,119,.14),transparent);padding:10px 12px;border-radius:0 10px 10px 0;font-size:17px}
+summary{color:var(--ac)}th{background:var(--gr)}
+.drop{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(255,61,119,.07))}
+</style></head><body>
+<header><svg width="42" height="42" viewBox="0 0 42 42" fill="none" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path class="ar" d="M6 36L30 12M30 12H17M30 12V25" stroke="var(--ac)"/><path class="ar" d="M6 36H34M34 36l-6-4M34 36l-6 4" stroke="var(--res)"/></svg><h1>Vect<span>ura</span></h1><div class="sub"></div><button id="th" aria-label="Toggle theme">Dark mode</button><p class="tag">Solve any coplanar force system in seconds.</p></header>
+<div class="tabs" id="tabs"></div>
+<main>
+<section>
+ <div class="box"><h2>Scan a problem</h2><label class="drop" id="dz"><input id="fi" type="file" accept="image/*" hidden>Take a photo, upload, paste or drop an image of the problem</label><img id="pv" alt="Preview of the scanned problem"><button class="p" id="sc" style="margin-top:8px" disabled>Read problem</button><div class="msg" id="sm"></div></div>
+ <div class="box"><h2>Forces</h2><div id="rows"></div>
+  <button id="add">Add force</button> <button id="ex">Load example</button>
+  <div class="set"><label>Unit <select id="un"><option>N</option><option>kN</option></select></label>
+  <label>Decimals <select id="pr"><option>2</option><option selected>3</option><option>4</option></select></label>
+  <label id="dl" hidden>Direction <select id="dr"><option value="v">Vertical forces</option><option value="h">Horizontal forces</option></select></label></div>
+  <div class="set"><label><input type="checkbox" id="kc" checked> Components</label><label><input type="checkbox" id="ka" checked> Angle arcs</label><label><input type="checkbox" id="kg" checked> Grid</label></div>
+  <p class="hd" id="hint"></p></div>
+ <div class="box"><h2>Saved problems</h2><div class="sv"><input id="ti" placeholder="Problem title"><button class="p" id="sv">Save</button></div><div id="list"></div></div>
+</section>
+<section>
+ <div class="box"><canvas id="cv" width="640" height="440"></canvas></div>
+ <div class="box"><h2>Solution</h2><div id="out"></div></div>
+</section>
+</main>
+<script>
+const D=Math.PI/180,$=s=>document.querySelector(s);
+const EX={concurrent:[{f:100,a:30},{f:150,a:120},{f:200,a:225}],parallel:[{f:-20,x:0},{f:30,x:2},{f:-10,x:5}],general:[{f:100,a:30,x:0,y:0},{f:150,a:120,x:2,y:0},{f:200,a:225,x:4,y:1}]};
+const KEYS={concurrent:['f','a'],parallel:['f','x'],general:['f','a','x','y']};
+const NAMES={concurrent:'Concurrent',parallel:'Parallel',general:'General'};
+const COL=['#7c3aed','#ff9f1a','#00c2a8','#3b82f6','#ec4899','#84cc16'];
+let mode='concurrent',forces=JSON.parse(JSON.stringify(EX.concurrent)),P=3,U='N',saved=[];
+try{saved=JSON.parse(localStorage.getItem('vectura')||'[]')}catch(e){}
+function store(){try{localStorage.setItem('vectura',JSON.stringify(saved))}catch(e){}}
+const fm=(n,p=P)=>{let s=(+n).toFixed(p);return /^-0\.?0*$/.test(s)?s.slice(1):s};
+function heads(){const d=$('#dr').value;return mode=='concurrent'?['F','Angle °']:mode=='parallel'?['F (+ up/right)',d=='v'?'x (m)':'y (m)']:['F','Angle °','x (m)','y (m)']}
+function rows(){const k=KEYS[mode],h=heads(),c=`grid-template-columns:repeat(${k.length},1fr) 32px`;
+ let s=`<div class="rw hd" style="${c}">${h.map(x=>`<span>${x}</span>`).join('')}<span></span></div>`;
+ forces.forEach((o,i)=>{s+=`<div class="rw" style="${c}">${k.map(q=>`<input type="number" step="any" data-i="${i}" data-k="${q}" value="${o[q]??0}" aria-label="${q} of force ${i+1}">`).join('')}<button data-d="${i}" aria-label="Delete force ${i+1}">✕</button></div>`});
+ $('#rows').innerHTML=s;$('#dl').hidden=mode!='parallel';
+ $('#hint').textContent=mode=='concurrent'?'Angles are measured anticlockwise from the +X axis. All forces act through the origin.':mode=='parallel'?'Positive force points up (vertical) or right (horizontal). Distances are from the origin O.':'Angle is anticlockwise from +X. (x, y) is the point where each force acts. Moments are taken about O.'}
+function norm(){const d=$('#dr').value;return forces.map(o=>{const f=+o.f||0,a=+o.a||0,x=+o.x||0,y=+o.y||0;
+ if(mode=='concurrent')return{F:f,a,Fx:f*Math.cos(a*D),Fy:f*Math.sin(a*D),px:0,py:0};
+ if(mode=='parallel')return d=='v'?{F:f,a:f>=0?90:270,Fx:0,Fy:f,px:x,py:0,d:x}:{F:f,a:f>=0?0:180,Fx:f,Fy:0,px:0,py:x,d:x};
+ return{F:f,a,Fx:f*Math.cos(a*D),Fy:f*Math.sin(a*D),px:x,py:y}})}
+const tb=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(a=>`<tr>${a.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table>`;
+const st=(t,b)=>`<details open><summary>${t}</summary>${b}</details>`;
+function calc(){P=+$('#pr').value;U=$('#un').value;const n=norm();let Rx=0,Ry=0,M=0;
+ n.forEach(o=>{o.M=o.px*o.Fy-o.py*o.Fx;Rx+=o.Fx;Ry+=o.Fy;M+=o.M});
+ const R=Math.hypot(Rx,Ry),z=R<1e-9,r={Rx,Ry,R,M,z},v=$('#dr').value;let S='';
+ if(!z){r.th=(Math.atan2(Ry,Rx)/D+360)%360;r.al=Math.atan(Math.abs(Ry/Rx))/D;r.p=[M*Ry/R/R,-M*Rx/R/R];r.d=Math.abs(M)/R;
+  r.xi=Math.abs(Ry)>1e-9?M/Ry:null;r.yi=Math.abs(Rx)>1e-9?-M/Rx:null;
+  r.q=Rx>=0&&Ry>=0?'I':Rx<0&&Ry>=0?'II':Rx<0?'III':'IV'}
+ const sm=(a)=>a.map(x=>fm(x)).join(' + ').replace(/\+ -/g,'− ');
+ if(mode=='concurrent'){
+  S+=st('1. Resolve each force',`<p class="f">Fx = F cos θ,  Fy = F sin θ</p>`+tb(['#','F','θ','Fx','Fy'],n.map((o,i)=>[i+1,fm(o.F),fm(o.a,1)+'°',fm(o.Fx),fm(o.Fy)])));
+  S+=st('2. Sum the components',`<p class="f">ΣFx = ${sm(n.map(o=>o.Fx))} = <b>${fm(Rx)} ${U}</b></p><p class="f">ΣFy = ${sm(n.map(o=>o.Fy))} = <b>${fm(Ry)} ${U}</b></p>`);
+  S+=st('3. Resultant magnitude',`<p class="f">R = √(ΣFx² + ΣFy²) = √(${fm(Rx)}² + ${fm(Ry)}²) = <b>${fm(R)} ${U}</b></p>`);
+  S+=z?st('4. Direction',`<p>R = 0, so the system is in equilibrium.</p>`):st('4. Direction',`<p class="f">α = tan⁻¹|ΣFy / ΣFx| = tan⁻¹(${fm(Math.abs(Ry))} / ${fm(Math.abs(Rx))}) = ${fm(r.al,2)}°</p><p>ΣFx is ${Rx>=0?'positive':'negative'} and ΣFy is ${Ry>=0?'positive':'negative'}, so R lies in quadrant ${r.q}.</p><p class="f">θ = <b>${fm(r.th,2)}°</b> from the +X axis (anticlockwise)</p>`);
+  S+=st('5. Equilibrant',z?`<p>No equilibrant is needed.</p>`:`<p>To balance the system, add a force of <b>${fm(R)} ${U}</b> at <b>${fm((r.th+180)%360,2)}°</b>.</p>`);
+ }else if(mode=='parallel'){
+  const ax=v=='v'?'y':'x',pos=v=='v'?'x':'y';
+  S+=st('1. Resultant force',`<p class="f">R = ΣF = ${sm(n.map(o=>o.F))} = <b>${fm(Rx+Ry)} ${U}</b></p><p>${z?'R = 0, so the system reduces to a couple (or is in equilibrium).':'Acts '+(v=='v'?(Ry>0?'upward':'downward'):(Rx>0?'to the right':'to the left'))+'. The forces are '+(n.every(o=>o.F>=0)||n.every(o=>o.F<=0)?'like':'a mix of like and unlike')+' parallel forces.'}</p>`);
+  S+=st('2. Moments about O',`<p class="f">M = F × ${pos}${v=='h'?' (clockwise for positive F above O)':''}; anticlockwise is positive</p>`+tb(['#','F',pos+' (m)','M'],n.map((o,i)=>[i+1,fm(o.F),fm(o.d),fm(o.M)])));
+  S+=st('3. Total moment',`<p class="f">ΣM = ${sm(n.map(o=>o.M))} = <b>${fm(M)} ${U}·m</b></p>`);
+  S+=z?st('4. Result',`<p>Since R = 0, the system is equivalent to a couple of moment <b>${fm(M)} ${U}·m</b> (${M>=0?'anticlockwise':'clockwise'}).</p>`):st('4. Position of resultant (Varignon)',`<p class="f">R × ${pos} = ΣM  →  ${pos} = ${fm(M)} / ${fm(v=='v'?Ry:-Rx)} = <b>${fm(v=='v'?r.p[0]:r.p[1])} m</b> from O</p>`);
+ }else{
+  S+=st('1. Resolve each force',`<p class="f">Fx = F cos θ,  Fy = F sin θ</p>`+tb(['#','F','θ','Fx','Fy'],n.map((o,i)=>[i+1,fm(o.F),fm(o.a,1)+'°',fm(o.Fx),fm(o.Fy)])));
+  S+=st('2. Resultant force',`<p class="f">ΣFx = ${fm(Rx)} ${U},  ΣFy = ${fm(Ry)} ${U}</p><p class="f">R = √(${fm(Rx)}² + ${fm(Ry)}²) = <b>${fm(R)} ${U}</b></p>`+(z?'<p>R = 0.</p>':`<p class="f">α = ${fm(r.al,2)}°, quadrant ${r.q}, so θ = <b>${fm(r.th,2)}°</b></p>`));
+  S+=st('3. Moments about O',`<p class="f">M = x·Fy − y·Fx  (anticlockwise positive)</p>`+tb(['#','x','y','Fx','Fy','M'],n.map((o,i)=>[i+1,fm(o.px),fm(o.py),fm(o.Fx),fm(o.Fy),fm(o.M)]))+`<p class="f">ΣM = <b>${fm(M)} ${U}·m</b></p>`);
+  S+=z?st('4. Result',`<p>R = 0, so the system is equivalent to a couple of <b>${fm(M)} ${U}·m</b>.</p>`):st('4. Line of action',`<p class="f">d = |ΣM| / R = ${fm(Math.abs(M))} / ${fm(R)} = <b>${fm(r.d)} m</b> from O</p><p class="f">Line: x·ΣFy − y·ΣFx = ΣM</p><p class="f">X-intercept (y = 0): x = ΣM / ΣFy = ${r.xi==null?'none (parallel to X axis)':'<b>'+fm(r.xi)+' m</b>'}</p><p class="f">Y-intercept (x = 0): y = −ΣM / ΣFx = ${r.yi==null?'none (parallel to Y axis)':'<b>'+fm(r.yi)+' m</b>'}</p>`);
+  S+=st('5. Equivalent force-couple at O',`<p>Force R = ${fm(R)} ${U} at ${z?'—':fm(r.th,2)+'°'} together with a couple of ${fm(M)} ${U}·m (${M>=0?'anticlockwise':'clockwise'}).</p>`);
+ }
+ const head=z?'Resultant R = 0 (equilibrium or pure couple)':`R = ${fm(R)} ${U} at θ = ${fm(r.th,2)}°`;
+ $('#out').innerHTML=`<p class="res">${head}</p>`+S;draw(n,r)}
+function arrow(g,x1,y1,x2,y2,c,w){g.strokeStyle=g.fillStyle=c;g.lineWidth=w;g.setLineDash([]);g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();const a=Math.atan2(y2-y1,x2-x1);g.beginPath();g.moveTo(x2,y2);g.lineTo(x2-11*Math.cos(a-.4),y2-11*Math.sin(a-.4));g.lineTo(x2-11*Math.cos(a+.4),y2-11*Math.sin(a+.4));g.closePath();g.fill()}
+function arc(g,x,y,th,c,rad){g.strokeStyle=c;g.fillStyle=c;g.lineWidth=1.5;g.setLineDash([]);g.beginPath();g.arc(x,y,rad,0,-th*D,true);g.stroke();const m=-th*D/2;g.font='12px Archivo,sans-serif';g.fillText(fm(th,1)+'°',x+(rad+8)*Math.cos(m)-4,y+(rad+8)*Math.sin(m)+4)}
+function draw(n,r){const c=$('#cv'),g=c.getContext('2d'),W=640,H=440,cs=getComputedStyle(document.documentElement),v=k=>cs.getPropertyValue(k).trim();
+ g.setLineDash([]);g.fillStyle=v('--card');g.fillRect(0,0,W,H);
+ const xs=[0],ys=[0];n.forEach(o=>{xs.push(o.px);ys.push(o.py)});if(r.p){xs.push(r.p[0]);ys.push(r.p[1])}
+ const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),span=Math.max(x1-x0,y1-y0,3),s=Math.min(240/span,60),cx=(x0+x1)/2,cy=(y0+y1)/2;
+ const X=x=>W/2+(x-cx)*s,Y=y=>H/2-(y-cy)*s;
+ if($('#kg').checked){const stp=s>=20?1:s>=8?5:10;g.strokeStyle=v('--gr');g.lineWidth=1;
+  for(let x=Math.floor((cx-W/2/s)/stp)*stp;x<=cx+W/2/s;x+=stp){g.beginPath();g.moveTo(X(x),0);g.lineTo(X(x),H);g.stroke()}
+  for(let y=Math.floor((cy-H/2/s)/stp)*stp;y<=cy+H/2/s;y+=stp){g.beginPath();g.moveTo(0,Y(y));g.lineTo(W,Y(y));g.stroke()}}
+ g.strokeStyle=v('--ax');g.lineWidth=1.5;g.beginPath();g.moveTo(0,Y(0));g.lineTo(W,Y(0));g.moveTo(X(0),0);g.lineTo(X(0),H);g.stroke();
+ g.fillStyle=v('--mu');g.font='12px Archivo,sans-serif';g.fillText('X',W-16,Y(0)-6);g.fillText('Y',X(0)+6,14);
+ const mx=Math.max(...n.map(o=>Math.hypot(o.Fx,o.Fy)),r.R||0,1e-9),L=f=>Math.hypot(f[0],f[1])/mx*140;
+ const tx=v('--tx');
+ n.forEach((o,i)=>{const sx=X(o.px),sy=Y(o.py),m=Math.hypot(o.Fx,o.Fy);if(m<1e-9)return;const l=m/mx*140,ex=sx+o.Fx/m*l,ey=sy-o.Fy/m*l,col=COL[i%6];
+  if($('#kc').checked&&mode!='parallel'&&Math.abs(o.Fx)>1e-9&&Math.abs(o.Fy)>1e-9){g.strokeStyle=v('--cm');g.lineWidth=1.3;g.setLineDash([5,4]);g.beginPath();g.moveTo(sx,sy);g.lineTo(ex,sy);g.lineTo(ex,ey);g.stroke();g.setLineDash([]);g.fillStyle=v('--cm');g.font='11px Archivo,sans-serif';g.fillText('Fx='+fm(o.Fx,1),(sx+ex)/2-18,sy+(o.Fy>0?14:-6));g.fillText('Fy='+fm(o.Fy,1),ex+(o.Fx>0?5:-58),(sy+ey)/2)}
+  arrow(g,sx,sy,ex,ey,col,2.5);
+  if($('#ka').checked&&mode!='parallel'){const a=(Math.atan2(o.Fy,o.Fx)/D+360)%360;if(a>0.5)arc(g,sx,sy,a,col,26)}
+  g.fillStyle=col;g.font='600 12px Archivo,sans-serif';g.fillText('F'+(i+1)+' = '+fm(Math.abs(o.F),1)+' '+U,ex+(o.Fx>=0?6:-70),ey+(o.Fy>=0?-6:14))});
+ if(!r.z){const sx=X(r.p[0]),sy=Y(r.p[1]),ex=sx+r.Rx/r.R*150,ey=sy-r.Ry/r.R*150;
+  if(mode!='concurrent'){g.strokeStyle=v('--res');g.lineWidth=1;g.setLineDash([3,5]);g.beginPath();g.moveTo(sx-r.Rx/r.R*500,sy+r.Ry/r.R*500);g.lineTo(sx+r.Rx/r.R*500,sy-r.Ry/r.R*500);g.stroke()}
+  arrow(g,sx,sy,ex,ey,v('--res'),4);if($('#ka').checked&&mode!='parallel')arc(g,sx,sy,r.th,v('--res'),40);
+  g.fillStyle=v('--res');g.font='800 13px Archivo,sans-serif';g.fillText('R = '+fm(r.R,1)+' '+U,ex+(r.Rx>=0?6:-80),ey+(r.Ry>=0?-8:16))}
+ g.fillStyle=tx;g.beginPath();g.arc(X(0),Y(0),4,0,7);g.fill();g.font='700 12px Archivo,sans-serif';g.fillText('O',X(0)-14,Y(0)+16)}
+function tabs(){$('#tabs').innerHTML=Object.keys(NAMES).map(k=>`<button data-m="${k}" class="${k==mode?'on':''}">${NAMES[k]} system</button>`).join('')}
+function list(){$('#list').innerHTML=saved.length?saved.map((o,i)=>`<div class="it"><div><b>${o.t.replace(/</g,'&lt;')}</b><small>${NAMES[o.m]} · ${o.d}</small></div><span><button data-o="${i}">Open</button> <button data-x="${i}" aria-label="Delete">✕</button></span></div>`).join(''):'<p class="hd">Solved problems you save will appear here.</p>'}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.m){mode=b.dataset.m;forces=JSON.parse(JSON.stringify(EX[mode]));tabs();rows();calc()}
+ else if(b.dataset.d!==undefined){forces.splice(+b.dataset.d,1);rows();calc()}
+ else if(b.id=='add'){forces.push(mode=='parallel'?{f:10,x:1}:mode=='general'?{f:100,a:0,x:0,y:0}:{f:100,a:0});rows();calc()}
+ else if(b.id=='ex'){forces=JSON.parse(JSON.stringify(EX[mode]));rows();calc()}
+ else if(b.id=='sv'){const t=$('#ti').value.trim()||('Problem '+(saved.length+1));saved.unshift({t,m:mode,dr:$('#dr').value,u:U,f:JSON.parse(JSON.stringify(forces)),d:new Date().toLocaleDateString()});store();$('#ti').value='';list()}
+ else if(b.dataset.o!==undefined){const o=saved[+b.dataset.o];mode=o.m;$('#dr').value=o.dr;$('#un').value=o.u;forces=JSON.parse(JSON.stringify(o.f));tabs();rows();calc()}
+ else if(b.dataset.x!==undefined){saved.splice(+b.dataset.x,1);store();list()}
+ else if(b.id=='th'){const d=document.documentElement,dark=getComputedStyle(d).colorScheme=='dark';d.dataset.theme=dark?'light':'dark';b.textContent=dark?'Dark mode':'Light mode';calc()}});
+$('#rows').addEventListener('input',e=>{const t=e.target;if(t.dataset.i!==undefined){forces[+t.dataset.i][t.dataset.k]=t.value===''?0:+t.value;calc()}});
+['un','pr','kc','ka','kg'].forEach(i=>$('#'+i).addEventListener('change',calc));
+$('#dr').addEventListener('change',()=>{rows();calc()});
+if(getComputedStyle(document.documentElement).colorScheme=='dark')$('#th').textContent='Light mode';
+let img=null;
+function pick(f){if(!f||!f.type.startsWith('image/'))return;img=f;const p=$('#pv');p.src=URL.createObjectURL(f);p.style.display='block';$('#sc').disabled=false;$('#sm').textContent=''}
+$('#fi').addEventListener('change',e=>pick(e.target.files[0]));
+document.addEventListener('paste',e=>pick([...(e.clipboardData?.files||[])][0]));
+$('#dz').addEventListener('dragover',e=>e.preventDefault());$('#dz').addEventListener('drop',e=>{e.preventDefault();pick(e.dataTransfer.files[0])});
+async function shrink(f){const b=await createImageBitmap(f),k=Math.min(1,1600/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=Math.round(b.width*k);c.height=Math.round(b.height*k);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.85).split(',')[1]}
+$('#sc').addEventListener('click',async()=>{const m=$('#sm'),b=$('#sc');m.textContent='Reading the problem\u2026';b.disabled=true;
+ try{const r=await fetch('/api/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:await shrink(img)})});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw{message:j.error||'Scan failed.'};
+  if(!EX[j.mode]||!Array.isArray(j.forces)||!j.forces.length)throw{message:'No forces found. Try a clearer, closer photo.'};
+  mode=j.mode;$('#un').value=j.unit=='kN'?'kN':'N';$('#dr').value=j.direction=='h'?'h':'v';
+  forces=j.forces.map(o=>({f:+o.f||0,a:+o.a||0,x:+o.x||0,y:+o.y||0}));tabs();rows();calc();
+  m.textContent='Found '+forces.length+' forces ('+NAMES[mode]+'). '+(j.summary||'')+' Check the values above and fix anything unclear. '+(j.notes||'')
+ }catch(e){m.textContent=(e.message||'Could not read the image.')+' You can also enter the values by hand.'}
+ b.disabled=false});
+tabs();rows();list();calc();
+</script></body></html>
